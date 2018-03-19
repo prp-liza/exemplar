@@ -1,0 +1,19 @@
+{
+  "name": "exemplar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prp-liza/exemplar.git"
+  },
+  "author": "lyzak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prp-liza/exemplar/issues"
+  },
+  "homepage": "https://github.com/prp-liza/exemplar#readme"
+}
