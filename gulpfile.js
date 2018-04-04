@@ -25,7 +25,6 @@ var folders = [
 	"app/dev/reducers/faq/*.*"
 ]
 
-
 gulp.task('live-server', function(){
 	var server = new liveServer('server/main.js');
 	server.start();
@@ -61,5 +60,9 @@ gulp.task('default', ['bundle', 'live-server'], function(){
 		proxy: "http://localhost:50000",
 		port: 9001,
 	});
+<<<<<<< HEAD
 	gulp.watch(folders, ['js-watch']);
+=======
+	gulp.watch("app/*.*", ['js-watch']);
+>>>>>>> 66eefe2c1430de6e43cfe146088b9b080834196d
 })
