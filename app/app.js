@@ -9,11 +9,7 @@ const App = () => (
 		<FaqAddItem/>
 		<FaqList/>
 		<hr/>
-<<<<<<< HEAD
 		<h2>Question Detail : </h2>
-=======
-		<h2>Question Details : </h2>
->>>>>>> 66eefe2c1430de6e43cfe146088b9b080834196d
 		<FaqDetail/>
 		
 	</div>
