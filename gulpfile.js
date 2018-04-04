@@ -10,7 +10,6 @@ gulp.watch - watch files folders
 */
 
 
-
 var gulp = require('gulp');
 var liveServer = require('gulp-live-server');
 var browserSync = require('browser-sync');
@@ -19,14 +18,13 @@ var browserify = require('browserify');
 var babelify  = require('babelify');
 
 
-
 gulp.task('live-server', function(){
 	var server = new liveServer('server/main.js');
 	server.start();
 })
 
 
-
+// process JS and JSX files and return the stream.
 gulp.task('bundle', function(){
 	return browserify({
 		extensions: ['.js', '.jsx'],
@@ -35,15 +33,25 @@ gulp.task('bundle', function(){
 	})
 	.transform(babelify)									//turn all files into JS from JSX
 	.bundle()												//Bundle them into one file
-	.pipe(source('app.js'))									//pipe it to the vinyl source stream to be processed
+	.pipe(source('app.min.js'))								//pipe it to the vinyl source stream to be processed
 	.pipe(gulp.dest('./.tmp'))								//send the compiled file to destination
 })
 
 
+//task that ensures the `bundle` task is complete before reloading browsers
+gulp.task('js-watch', ['bundle'], function (done) {
+    browserSync.reload();
+    done();
+});
 
+
+// default task to be run with `gulp`
+// this default task will run BrowserSync & then use Gulp to watch files.
+// when a file is changed, an event is emitted to BrowserSync
 gulp.task('default', ['bundle', 'live-server'], function(){ 			
 	browserSync.init(null,{
 		proxy: "http://localhost:50000",
 		port: 9001,
-	})
+	});
+	gulp.watch("app/*.*", ['js-watch']);
 })
