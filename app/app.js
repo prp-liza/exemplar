@@ -1,18 +1,26 @@
+
 import React from 'react';
-import FaqList from './dev/components/faq/faq-list.jsx';
-import FaqDetail from './dev/components/faq/faq-detail.jsx';
-import FaqAddItem from './dev/components/faq/faq-add-item.jsx';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
+
+import Nav from './dev/components/nav.jsx';
+import RubricList from './dev/components/faq/rubric-list.jsx';
+import InstallFaq from './dev/components/faq/install-faq.jsx';
+import Dashboard from './dev/components/faq/dashboard.jsx';
 
 
 const App = () => (
-	<div>
-		<FaqAddItem/>
-		<FaqList/>
-		<hr/>
-		<h2>Question Detail : </h2>
-		<FaqDetail/>
-		
-	</div>
+	<Router>
+		<div>			
+			<Nav/>			
+			<hr/>
+			<Route exact path="/" component={RubricList} />
+			<Route exact path="/script" component={InstallFaq} />
+			<Route exact path="/dashboard" component={Dashboard} />
+		</div>
+
+	</Router>
+
 );
 
 export default App;

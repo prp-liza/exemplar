@@ -21,6 +21,7 @@ var folders = [
 	"app/*.*",
 	"app/dev/actions/*.*", 
 	"app/dev/components/faq/*.*", 
+	"app/dev/components/*.*", 
 	"app/dev/reducers/*.*", 
 	"app/dev/reducers/faq/*.*"
 ]

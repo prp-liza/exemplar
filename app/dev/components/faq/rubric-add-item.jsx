@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FaqAddItem extends Component {
+class RubricAddItem extends Component {
 
 	constructor(props) {
 		super(props);
@@ -37,7 +37,7 @@ class FaqAddItem extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Add category</h3>
+				<h3>Add rubric</h3>
 				<form onSubmit={this.onSubmit}>
 					<div>
 						<label>Title : </label> <br/>
@@ -48,16 +48,6 @@ class FaqAddItem extends Component {
 							value={this.state.title}
 						/>
 					</div>
-					<br/>
-					<div>
-						<label>Body : </label> <br/>
-						<input 							
-							type="text" 
-							name="body"
-							onChange={this.onChange}
-							value={this.state.body}
-						/>
-					</div><br/>
 					<input 
 						type="submit" 
 						value="Submit" 
@@ -68,4 +58,4 @@ class FaqAddItem extends Component {
 	}
 }
 
-export default FaqAddItem;
+export default RubricAddItem;

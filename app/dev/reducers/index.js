@@ -1,13 +1,13 @@
 // take all reducers and combine them to 1 object
 
 import {combineReducers} from 'redux';
-import FaqReducer from './faq/reducer-faqs';
-import FaqReducerActive from './faq/reducer-faq-active';
+import RubricReducer from './faq/reducer-rubrics';
+import RubricReducerActive from './faq/reducer-rubric-active';
 
 
 const allReducers = combineReducers({
-	faqs: FaqReducer,
-	faqActive: FaqReducerActive
+	rubrics: RubricReducer,
+	rubricActive: RubricReducerActive
 });
 
 export default allReducers;

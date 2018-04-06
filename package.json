@@ -16,19 +16,20 @@
     "url": "https://github.com/prp-liza/exemplar/issues"
   },
   "homepage": "https://github.com/prp-liza/exemplar#readme",
-  "dependencies": {    
+  "dependencies": {
+    "babel-core": "^6.26.0",
     "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
     "ejs": "^2.5.7",
     "express": "^4.16.3",
-    "react": "^16.2.0",
     "gulp": "^3.9.1",
-    "browserify": "^16.1.1",
-    "babel-core": "^6.26.0",
+    "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "vinyl-source-stream": "^2.0.0",
-    "redux": "^3.7.2",
     "react-redux": "^5.0.7",
-    "react-scripts": "1.1.1"
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "redux": "^3.7.2",
+    "vinyl-source-stream": "^2.0.0"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
@@ -37,8 +38,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",    
-    "browser-sync": "^2.23.6",   
+    "babel-preset-stage-3": "^6.24.1",
+    "browser-sync": "^2.23.6",
     "gulp-live-server": "0.0.31",
     "redux-devtools": "^3.4.1"
   }
