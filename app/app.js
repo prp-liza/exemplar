@@ -11,14 +11,13 @@ import Dashboard from './dev/components/faq/dashboard.jsx';
 
 const App = () => (
 	<Router>
-		<div>			
+		<div className="container">			
 			<Nav/>			
 			<hr/>
-			<Route exact path="/" component={RubricList} />
+			<Route path="/(faq|)/" component={RubricList} />
 			<Route exact path="/script" component={InstallFaq} />
 			<Route exact path="/dashboard" component={Dashboard} />
 		</div>
-
 	</Router>
 
 );

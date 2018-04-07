@@ -17,14 +17,22 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var babelify  = require('babelify');
 
+
+// send all files compiled to this destination
+var dest = './.tmp';
+
+
+// folders to watch
 var folders = [
 	"app/*.*",
 	"app/dev/actions/*.*", 
 	"app/dev/components/faq/*.*", 
 	"app/dev/components/*.*", 
 	"app/dev/reducers/*.*", 
-	"app/dev/reducers/faq/*.*"
+	"app/dev/reducers/faq/*.*",
+	".tmp/css/*.*"
 ]
+
 
 gulp.task('live-server', function(){
 	var server = new liveServer('server/main.js');
@@ -42,8 +50,9 @@ gulp.task('bundle', function(){
 	.transform(babelify)									//turn all files into JS from JSX
 	.bundle()												//Bundle them into one file
 	.pipe(source('app.min.js'))								//pipe it to the vinyl source stream to be processed
-	.pipe(gulp.dest('./.tmp'))								//send the compiled file to destination
+	.pipe(gulp.dest(dest+ '/js'))								//send the compiled file to destination
 })
+
 
 
 //task that ensures the `bundle` task is complete before reloading browsers
@@ -51,6 +60,7 @@ gulp.task('js-watch', ['bundle'], function (done) {
     browserSync.reload();
     done();
 });
+
 
 
 // default task to be run with `gulp`
@@ -63,7 +73,4 @@ gulp.task('default', ['bundle', 'live-server'], function(){
 	});
 
 	gulp.watch(folders, ['js-watch']);
-
-	gulp.watch("app/*.*", ['js-watch']);
-
 })
