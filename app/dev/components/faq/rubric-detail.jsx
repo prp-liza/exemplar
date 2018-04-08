@@ -1,36 +1,71 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import RubricList from './rubric-list.jsx';
+import {Link} from 'react-router-dom';
+
+
+// detail of the rubric selected
 
 class RubricDetail extends Component {
 
-	RubricActiveDetail() {
-		const detail = this.props.rubricActive.content.map((content) =>
-			<div key={content.id}> 
-				<h2> {content.question} </h2>
-				<p> {content.answer} </p>
-				<p> {content.tags.map((tag,i)=><li key={i}>{tag}</li>)} </p>
-			</div>
-		);
-		return (
-			<div>
-				{detail}
-			</div>
-		);		
+	RubricActiveDetail(props) {
+
+		console.log("match.params:", this.props.match.params.rubricSlug);
+
+		// check URL
+		const rubricSlug = this.props.match.params.rubricSlug;
+		const rubric = this.props.rubrics.find(({slug}) => slug === rubricSlug);
+
+		// console.log(rubric);
+
+		if (!rubric){
+			return (
+				<div>
+					<h1> This rubric doesn't exist</h1>
+				</div>
+			);	
+		} else {
+			// grap data
+			const detail = rubric.content.map((content) =>
+				<div key={content.id}> 
+					<p> <strong>{content.question}</strong></p>
+					<p> {content.answer} </p>
+					<ul> <i> {content.tags.map((tag,i)=><li key={i}>{tag}</li>)} </i> </ul>
+				</div>
+			);
+
+			return (
+				<div>
+					<h1>{rubric.name}</h1>
+					<div>
+						{detail}
+					</div>
+
+				</div>
+			);		
+		}		
 	}
+
 	 
 	render() {
-
-		if(!this.props.rubricActive){
-			return (<h4>Select a rubric ...</h4>)
-		}
-
-		return (			
+		
+		return (
+		<div>
 			<div>
-				<h2> {this.props.rubricActive.name} </h2>
-				<div>{this.RubricActiveDetail()}</div>
-				
+				{this.RubricActiveDetail()}
 			</div>
+			<div>
+				<ul>
+					{this.props.rubrics.map((rubric)=>
+						<li key={rubric.id}>
+							<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>
+						</li>)
+					} 
+				</ul>
+			</div>			
+		</div>			
+
 		);
 	}
 }
@@ -38,14 +73,14 @@ class RubricDetail extends Component {
 
 //props validation
 RubricDetail.propTypes  = {
-	rubricActive: PropTypes.object,
+	rubrics: PropTypes.array
 }
 
 
 // reducer
 function mapStateToProps (state) {
 	return {
-		rubricActive: state.rubricActive
+		rubrics: state.rubrics
 	};	
 }
 

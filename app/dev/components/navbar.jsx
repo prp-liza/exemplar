@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const Nav = () => (
+const Navbar = () => (
 	<div>
     	<ul>   	
 			<li> <a href="http://www.google.com" target="_blank"> Logo</a></li>
@@ -14,4 +14,4 @@ const Nav = () => (
 );
 
 
-export default Nav;
+export default Navbar;

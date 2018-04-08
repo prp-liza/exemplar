@@ -5,7 +5,7 @@ import {selectRubric} from '../../actions/actions-faq';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import RubricAddItem from './rubric-add-item.jsx';
-import RubricDetail from './rubric-detail.jsx';
+import {Link} from 'react-router-dom';
 
 class RubricList extends React.Component {
 
@@ -17,7 +17,8 @@ class RubricList extends React.Component {
 					key={rubric.id}
 					onClick={() => this.props.selectRubric(rubric)}
 				> 
-					{rubric.name} 
+					<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>
+					
 				</li>
 			)
 		})
@@ -25,12 +26,11 @@ class RubricList extends React.Component {
 
 	render() {
 	    return (
-		    <div>
-		    	<RubricAddItem/>
+		    <div>		    	
 		    	<h1>Rubric List</h1>
 		    	<ul>{this.createRubricList()}</ul>
 		    	<hr/>
-				<RubricDetail/>	
+		    	<RubricAddItem/>				
 		    </div>	      
 	    );
   	}

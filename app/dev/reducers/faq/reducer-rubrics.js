@@ -3,6 +3,7 @@ export default function () {
         {
             "id": 1,
             "name": "rubric 1",
+            "slug": "rubric-1",
             "content": [
                 {
                     "id": 12,
@@ -22,7 +23,8 @@ export default function () {
         },
         {
             "id": 2,
-            "name": "rubric 2", 
+            "name": "rubric 2",
+            "slug": "rubric-2", 
             "content": [
                 {
                     "id": 15,
@@ -42,7 +44,8 @@ export default function () {
         },         
         {
             "id": 3,
-            "name": "rubric 3", 
+            "name": "rubric 3",
+            "slug": "rubric-3", 
             "content": [
                 {
                     "id": 25,

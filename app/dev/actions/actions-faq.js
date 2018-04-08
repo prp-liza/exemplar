@@ -1,10 +1,17 @@
 
+// FETCH_RUBRICS
+// ADD_RUBRIC
+// SELECT_RUBRIC
 
-// Select rubric
-export const selectRubric= (rubric) => {
-	console.log("clicked", rubric.name);
+// FETCH_FAQS
+// ADD_FAQS
+// SELECT_FAQ
+
+
+export const selectRubric= rubric => {
+	console.log("action:", rubric.name);
 	return {
-		type: "RUBRIC_SELECTED", // reducer-rubric-active
+		type: "RUBRIC_SELECTED",
 		payload: rubric
 	}
 };

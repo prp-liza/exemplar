@@ -16,7 +16,7 @@ var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var babelify  = require('babelify');
-
+var historyFallback = require ('connect-history-api-fallback');
 
 // send all files compiled to this destination
 var dest = './.tmp';
@@ -69,7 +69,7 @@ gulp.task('js-watch', ['bundle'], function (done) {
 gulp.task('default', ['bundle', 'live-server'], function(){ 			
 	browserSync.init(null,{
 		proxy: "http://localhost:50000",
-		port: 9001,
+		port: 9001
 	});
 
 	gulp.watch(folders, ['js-watch']);
