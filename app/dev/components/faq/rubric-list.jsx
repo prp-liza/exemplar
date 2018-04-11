@@ -1,61 +1,67 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
-import {selectRubric} from '../../actions/actions-faq';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { fetchRubrics } from '../../actions/actions-faq';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import RubricAddItem from './rubric-add-item.jsx';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class RubricList extends React.Component {
 
-	createRubricList() {
-		return this.props.rubrics.map(rubric =>{
-			// console.log(rubric);
-			return (
-				<li 
-					key={rubric.id}
-					onClick={() => this.props.selectRubric(rubric)}
-				> 
-					<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>
-					
-				</li>
-			)
-		})
+	componentDidMount() {
+		this.props.fetchRubrics();
 	}
+
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.newRubric) {
+			this.props.rubrics.unshift(nextProps.newRubric)
+		}
+	}
+
+
+	getRubricList() {
+	    if(this.props.rubrics) {
+	      return this.props.rubrics.map((rubric,i) => {
+	        return <li key={rubric.id}> 
+					<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>					
+				</li>
+	      });
+	    } else {
+	      return <h1>nothing</h1>;
+	    }
+	}
+
 
 	render() {
 	    return (
 		    <div>		    	
 		    	<h1>Rubric List</h1>
-		    	<ul>{this.createRubricList()}</ul>
+		    	<ul>{this.getRubricList()}</ul>	
 		    	<hr/>
-		    	<RubricAddItem/>				
+		    	<RubricAddItem/>	
 		    </div>	      
 	    );
   	}
 }
 
 
-
 //props validation
 RubricList.propTypes  = {
 	rubrics: PropTypes.array,
-	selectRubric: PropTypes.func
+	fetchRubrics: PropTypes.func,
+	newRubric: PropTypes.object
+
 }
 
 
-// reducer
+//connects allreducer to props
 function mapStateToProps (state) {
 	return {
-		rubrics: state.rubrics
+		rubrics: state.rubrics.rubricItems,
+		newRubric: state.rubrics.rubricItem
 	};	
 }
 
-// action
-function matchDispatchToProps(dispatch) {
-	return bindActionCreators({selectRubric: selectRubric}, dispatch)	
-}
 
-
-export default connect(mapStateToProps, matchDispatchToProps)(RubricList);
+export default connect(mapStateToProps, { fetchRubrics })(RubricList);

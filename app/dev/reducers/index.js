@@ -2,12 +2,10 @@
 
 import {combineReducers} from 'redux';
 import RubricReducer from './faq/reducer-rubrics';
-// import RubricReducerActive from './faq/reducer-rubric-active';
 
 
 const allReducers = combineReducers({
 	rubrics: RubricReducer,
-	// rubricActive: RubricReducerActive
 });
 
 export default allReducers;

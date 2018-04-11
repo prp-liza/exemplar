@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createRubric } from '../../actions/actions-faq';
 
 class RubricAddItem extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-		  title: ""
+		  name: "",
+		  fireRedirect: false
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -18,20 +23,20 @@ class RubricAddItem extends Component {
 
 	onSubmit(e){
 		e.preventDefault();
-		
-		const post={
-			title: this.state.title
-		}
 
-		fetch('https://jsonplaceholder.typicode.com/posts', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify(post)
-		})
-    	.then(res => res.json())
-    	.then(data => this.setState({ post: data }));      
+		const slug = slugify(this.state.name);
+		
+		const rubric={
+			name: this.state.name,
+			slug: slug,
+			content:[]
+			
+		};
+
+		this.props.createRubric(rubric);
+
+		// reset the input after the data has been sent
+		this.setState({name : ""});
 	}
 
 	render() {
@@ -40,12 +45,12 @@ class RubricAddItem extends Component {
 				<h3>Add rubric</h3>
 				<form onSubmit={this.onSubmit}>
 					<div>
-						<label>Title : </label> <br/>
+						<label>Rubric Name : </label> <br/>
 						<input
 							type="text" 
-							name="title" 
+							name="name" 
 							onChange={this.onChange}
-							value={this.state.title}
+							value={this.state.name}
 						/>
 					</div>
 					<input 
@@ -53,9 +58,44 @@ class RubricAddItem extends Component {
 						value="Submit" 
 					/>
 				</form>
+				
 			</div>
 		);
+
+
 	}
 }
 
-export default RubricAddItem;
+
+function slugify (text) {
+  const a = 'àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;'
+  const b = 'aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(p, c =>
+        b.charAt(a.indexOf(c)))     // Replace special chars
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '')             // Trim - from end of text
+}
+
+
+//props validation
+RubricAddItem.propTypes  = {
+	createRubric: PropTypes.func
+}
+
+
+//connects allreducer to props
+function mapStateToProps (state) {
+	return {
+		newRubric: state.rubrics.rubricItem
+	};	
+}
+
+
+export default connect(mapStateToProps, { createRubric })(RubricAddItem);

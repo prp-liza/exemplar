@@ -11,7 +11,7 @@ class RubricDetail extends Component {
 
 	RubricActiveDetail(props) {
 
-		console.log("match.params:", this.props.match.params.rubricSlug);
+		//console.log("match.params:", this.props.match.params.rubricSlug);
 
 		// check URL
 		const rubricSlug = this.props.match.params.rubricSlug;
@@ -80,7 +80,7 @@ RubricDetail.propTypes  = {
 // reducer
 function mapStateToProps (state) {
 	return {
-		rubrics: state.rubrics
+		rubrics: state.rubrics.rubricItems
 	};	
 }
 
