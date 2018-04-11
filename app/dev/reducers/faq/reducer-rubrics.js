@@ -19,7 +19,8 @@ export default function(state= initialState, action) {
         case NEW_RUBRIC:
             return {
                 ...state,
-                rubricItem: action.payload
+                rubricItem: action.payload,
+                rubricItems:[...state.rubricItems, action.payload]
             };              
 
         default:

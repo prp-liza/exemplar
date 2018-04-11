@@ -13,13 +13,6 @@ class RubricList extends React.Component {
 		this.props.fetchRubrics();
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if(nextProps.newRubric) {
-			this.props.rubrics.unshift(nextProps.newRubric)
-		}
-	}
-
-
 	getRubricList() {
 	    if(this.props.rubrics) {
 	      return this.props.rubrics.map((rubric,i) => {
