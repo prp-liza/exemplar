@@ -1,4 +1,10 @@
-import { FETCH_RUBRICS, NEW_RUBRIC } from './types.js';
+import 
+{ 
+	FETCH_RUBRICS, 
+	NEW_RUBRIC, 
+	DELETE_RUBRIC,
+	UPDATE_RUBRIC 
+} from './types.js';
 
 
 export const fetchRubrics = () => dispatch => {
@@ -32,4 +38,21 @@ export const createRubric = (rubricData) => dispatch => {
 			})
 		);
 
+};
+
+export const deleteRubric = (rubricId) => dispatch => {
+	fetch(`http://localhost:3000/faqs/${rubricId}`)
+		.then(res => res.json()) 						
+		.then(rubric => 
+			// console.log(rubric.id, "deleted by action")		 						
+			dispatch({
+				type: DELETE_RUBRIC,
+    			payload: rubric
+			})
+		);
+	
+};
+
+export const updateRubric = (rubricId) => dispatch => {
+	
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { fetchRubrics } from '../../actions/actions-faq';
+import { fetchRubrics, deleteRubric, updateRubric } from '../../actions/actions-faq';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import RubricAddItem from './rubric-add-item.jsx';
@@ -14,15 +14,26 @@ class RubricList extends React.Component {
 	}
 
 	getRubricList() {
-	    if(this.props.rubrics) {
-	      return this.props.rubrics.map((rubric,i) => {
-	        return <li key={rubric.id}> 
-					<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>					
+      	return this.props.rubrics.map((rubric,i) => {
+	        return (
+	        	<li key={rubric.id}> 
+					<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>
+					<button onClick={() => this.deleteRubric(rubric.id)}>x</button>
+					<button onClick={() => this.updateRubric(rubric.id)}>Edit</button>
 				</li>
-	      });
-	    } else {
-	      return <h1>nothing</h1>;
-	    }
+	        ) 
+       	});	   
+	}
+
+
+	deleteRubric(rubricId){
+		//console.log('deleting', rubricId);
+		this.props.deleteRubric(rubricId)
+	}
+
+	updateRubric(rubricId){
+		console.log('updating', rubricId);
+		this.props.updateRubric(rubricId)
 	}
 
 
@@ -57,4 +68,4 @@ function mapStateToProps (state) {
 }
 
 
-export default connect(mapStateToProps, { fetchRubrics })(RubricList);
+export default connect(mapStateToProps, { fetchRubrics, deleteRubric, updateRubric })(RubricList);
