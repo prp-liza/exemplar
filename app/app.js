@@ -14,8 +14,8 @@ const App = () => (
 		<div className="container">			
 			<Navbar/>			
 			<hr/>
-			<Route exact path="/(faq|)/" component={RubricList} />
-				<Route exact path="/faq/:rubricSlug" component={RubricDetail} />
+			<Route exact path="/(faqs|)/" component={RubricList} />
+				<Route exact path="/faqs/:id" component={RubricDetail} />
 			<Route path="/script" component={InstallFaq} />
 			<Route path="/dashboard" component={Dashboard} />
 		</div>

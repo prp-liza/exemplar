@@ -19,7 +19,7 @@ var babelify  = require('babelify');
 var historyFallback = require ('connect-history-api-fallback');
 
 // send all files compiled to this destination
-var dest = './.tmp';
+var dest = './public';
 
 
 // folders to watch
@@ -30,7 +30,8 @@ var folders = [
 	"app/dev/components/*.*", 
 	"app/dev/reducers/*.*", 
 	"app/dev/reducers/faq/*.*",
-	".tmp/css/*.*"
+	".tmp/css/*.*",
+	"server/*.*",
 ]
 
 

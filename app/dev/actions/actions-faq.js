@@ -3,12 +3,15 @@ import
 	FETCH_RUBRICS, 
 	NEW_RUBRIC, 
 	DELETE_RUBRIC,
-	UPDATE_RUBRIC 
+	UPDATE_RUBRIC, 
+	SELECT_RUBRIC,
+	NEW_RUBRIC_CONTENT 
 } from './types.js';
 
 
+
 export const fetchRubrics = () => dispatch => {
-	fetch('http://localhost:3000/faqs')
+	fetch('/api/faqs')
 		.then(res => res.json()) 						
 		.then(rubrics =>
 			//console.log(rubrics) 		 						
@@ -22,7 +25,7 @@ export const fetchRubrics = () => dispatch => {
 
 export const createRubric = (rubricData) => dispatch => {
 	// console.log(rubricData);
-	fetch('http://localhost:3000/faqs', {
+	fetch('/api/faqs', {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json'
@@ -30,29 +33,50 @@ export const createRubric = (rubricData) => dispatch => {
 		body: JSON.stringify(rubricData)
 	})
 		.then(res => res.json()) 						
-		.then(rubric => 
-			//console.log(rubric)		 						
+		.then(newRubric => 
+			//console.log(newRubric)		 						
 			dispatch({
 				type: NEW_RUBRIC,
-    			payload: rubric
+    			payload: newRubric
 			})
 		);
 
 };
 
-export const deleteRubric = (rubricId) => dispatch => {
-	fetch(`http://localhost:3000/faqs/${rubricId}`)
-		.then(res => res.json()) 						
-		.then(rubric => 
-			// console.log(rubric.id, "deleted by action")		 						
-			dispatch({
-				type: DELETE_RUBRIC,
-    			payload: rubric
-			})
-		);
+
+export const deleteRubric = (id) => dispatch => {
+	fetch(`/api/faqs/${id}`, {
+		method: 'DELETE'
+	})
+	.then(res => res.json()) 						
+	.then(rubric => 
+		//console.log(rubric, "deleted by action")		 						
+		dispatch({
+			type: DELETE_RUBRIC,
+			payload: rubric
+		})
+	);
 	
 };
+
 
 export const updateRubric = (rubricId) => dispatch => {
 	
+};
+
+export const selectRubric = (rubricSelected) => dispatch => {
+	//console.log(rubricSelected); 						
+	dispatch({
+		type: SELECT_RUBRIC,
+		payload: rubricSelected
+	})
+};
+
+
+export const createRubricContent = (rubricContent, newContent) => dispatch => {
+  	dispatch ({
+	    type: NEW_RUBRIC_CONTENT,
+	    payload: {
+	    	...rubricContent, content: [...rubricContent.content, newContent]} 
+  	})
 };

@@ -2,70 +2,65 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import RubricList from './rubric-list.jsx';
+import RubricAddContent from './rubric-add-content.jsx';
 import {Link} from 'react-router-dom';
-
+import { selectRubric } from '../../actions/actions-faq';
+import { bindActionCreators } from 'redux';
 
 // detail of the rubric selected
 
 class RubricDetail extends Component {
 
-	RubricActiveDetail(props) {
+	componentWillMount() {
 
-		//console.log("match.params:", this.props.match.params.rubricSlug);
-
-		// check URL
-		const rubricSlug = this.props.match.params.rubricSlug;
-		const rubric = this.props.rubrics.find(({slug}) => slug === rubricSlug);
-
-		// console.log(rubric);
-
-		if (!rubric){
-			return (
-				<div>
-					<h1> This rubric doesn't exist</h1>
-				</div>
-			);	
-		} else {
-			// grap data
-			const detail = rubric.content.map((content) =>
-				<div key={content.id}> 
-					<p> <strong>{content.question}</strong></p>
-					<p> {content.answer} </p>
-					<ul> <i> {content.tags.map((tag,i)=><li key={i}>{tag}</li>)} </i> </ul>
-				</div>
-			);
-
-			return (
-				<div>
-					<h1>{rubric.name}</h1>
-					<div>
-						{detail}
-					</div>
-
-				</div>
-			);		
-		}		
 	}
 
-	 
-	render() {
-		
-		return (
-		<div>
-			<div>
-				{this.RubricActiveDetail()}
-			</div>
-			<div>
-				<ul>
-					{this.props.rubrics.map((rubric)=>
-						<li key={rubric.id}>
-							<Link to={`/faq/${rubric.slug}`}>{rubric.name} </Link>
-						</li>)
-					} 
-				</ul>
-			</div>			
-		</div>			
 
+	getDetail() {
+		console.log("getdetail here");
+		const rubricId = this.props.match.params.id;
+		const rubric = this.props.rubrics.find(({_id}) => _id === rubricId);
+		this.props.selectRubric(rubric);
+		console.log(this.props.rubrics);		
+		const detail = this.props.rubricSelected.content.map((content) =>
+			<div key={content._id}> 
+				<p> <strong>{content._id}</strong></p>
+				<p> {content.answer} </p>
+			</div>
+		);
+
+		return (
+
+			<div>
+				<h1>{this.props.rubricSelected.name}</h1>
+				<div>
+					{detail}
+				</div>
+				
+			</div>
+		);		
+	}		
+
+	render() {
+		console.log("return here");
+		// grap data
+		return (
+			<div>
+				<div>
+					{this.getDetail()}
+				</div>
+				<hr/>
+	    		<RubricAddContent/>
+				<div>
+					<ul>
+						{this.props.rubrics.map((rubric)=>
+							<li key={rubric._id}>
+								<Link to={`/faqs/${rubric._id}`} onClick={() => this.props.selectRubric(rubric)} >{rubric.name} </Link>
+							</li>)
+						} 
+					</ul>
+				</div>			
+			</div>			
 		);
 	}
 }
@@ -79,10 +74,18 @@ RubricDetail.propTypes  = {
 
 // reducer
 function mapStateToProps (state) {
-	return {
-		rubrics: state.rubrics.rubricItems
+	return {		
+		rubrics: state.rubrics.rubricItems,
+		rubricSelected: state.rubrics.rubricSelected
+		
 	};	
 }
 
+//connects redux actions to props
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    selectRubric: selectRubric
+  }, dispatch);
+}
 
-export default connect(mapStateToProps)(RubricDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(RubricDetail);

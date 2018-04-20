@@ -9,8 +9,7 @@ class RubricAddItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  name: "",
-		  fireRedirect: false
+		  name: ""
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -29,14 +28,14 @@ class RubricAddItem extends Component {
 		const rubric={
 			name: this.state.name,
 			slug: slug,
-			content:[]
-			
+			content:[]			
 		};
 
 		this.props.createRubric(rubric);
 
 		// reset the input after the data has been sent
 		this.setState({name : ""});
+		
 	}
 
 	render() {
@@ -90,12 +89,4 @@ RubricAddItem.propTypes  = {
 }
 
 
-//connects allreducer to props
-function mapStateToProps (state) {
-	return {
-		newRubric: state.rubrics.rubricItem
-	};	
-}
-
-
-export default connect(mapStateToProps, { createRubric })(RubricAddItem);
+export default connect(null, { createRubric })(RubricAddItem);
